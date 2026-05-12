@@ -1,0 +1,268 @@
+:root {
+  --vjs-callflow-variable:#dee2e8;
+  --vjs-callflow-green:forestgreen;
+  --vjs-callflow-blue:cyan;
+  --vjs-callflow-error:orangered;
+  --vjs-callflow-delete: orangered;
+
+  --vjs-callflow-node-bg:white;
+  --vjs-callflow-node-fg:black;
+}
+
+body * {
+    font-family: sans-serif;
+}
+
+.vjs-callflow {
+    display:flex;
+    height:100vh;
+}
+
+.vjs-callflow-rhs {
+    flex-basis: 450px;
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+}
+
+
+vjs-controls {
+    position:absolute;
+    left:1rem;
+    top:1rem;
+    z-index:50;
+}
+
+vjs-miniview {
+    position:absolute;
+    bottom:1rem;
+    left:1rem;
+    z-index:50;
+}
+
+.vjs-callflow-node {
+  min-width:140px;
+  max-width: 200px;
+  min-height:40px;
+  border:1px solid;
+  border-radius:5px;
+  background-color: var(--vjs-callflow-node-bg);
+  color:var(--vjs-callflow-node-fg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.vjs-callflow-label {
+  display: flex;
+  align-items: center;
+  padding:0.35rem;
+  white-space:nowrap;
+}
+
+.vjs-callflow-node-icon {
+  width:10px;
+  height:10px;
+  border-radius: 50%;
+  background-color: var(--vjs-callflow-green);
+  margin-right:0.25rem;
+  /* when used in the palette this style applies */
+  flex: 0 0 10px;
+}
+
+.vjs-callflow-node-text {
+  font-size: 13px;
+  padding:0.35rem;
+}
+
+.vjs-callflow-request-url {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.vjs-callflow-request-port {
+  position:relative;
+  font-size:13px;
+  margin:0.25rem 0;
+  padding-left: 0.15rem;
+}
+
+.vjs-callflow-connect {
+  width:10px;
+  height:10px;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  right:0;
+  top:50%;
+  transform: translate(50%, -50%);
+  border: 1px solid;
+  background-color: white;
+  color: var(--vjs-callflow-green);
+  z-index: 2;
+}
+
+.vjs-callflow-fail-path {
+  color:var(--vjs-callflow-error);
+}
+
+.vjs-callflow-variable {
+  display:flex;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  position:relative;
+}
+
+.vjs-callflow-variable-name {
+  background-color:var(--vjs-callflow-variable);
+  padding:2px;
+  margin: 2px 2px 5px 10px;
+  border-radius:3px;
+}
+
+.vjs-callflow-variable-value {
+  margin-left: 5px;
+  white-space: nowrap;
+}
+
+.vjs-callflow-variable .vjs-edge-delete {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translate(0,-50%);
+}
+
+.vjs-callflow-set-variables-buttons {
+  display:flex;
+  align-items:center;
+}
+
+.vjs-callflow-set-variables-buttons button {
+  margin:0.25rem;
+}
+
+.vjs-callflow-condition {
+  position:relative;
+  font-size:13px;
+  margin:0.25rem 0;
+  padding-left: 0.15rem;
+  white-space:nowrap;
+  color: #333;
+  cursor:pointer;
+}
+
+.vjs-callflow-add-condition {
+  margin-left:auto;
+  cursor:pointer;
+}
+
+.vjs-callflow-condition > span {
+  overflow:hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.vjs-callflow-condition .vjs-edge-delete {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translate(0,-50%);
+}
+
+.vjs-callflow-keypad-key {
+  padding: 2px 1rem 2px 0;
+  position: relative;
+  border-bottom:1px solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.vjs-callflow-palette {
+  display:flex;
+  flex-wrap: wrap;
+    padding:0.25rem;
+    justify-content: center;
+}
+
+.vjs-callflow-palette .vjs-callflow-palette-item {
+  margin:0.25rem;
+}
+
+.vjs-callflow-palette-item {
+  padding:0.5rem;
+  outline:1px solid;
+  border-radius:5px;
+  display: flex;
+  align-items: center;
+    width:6rem;
+}
+
+/* ------------------- edge styles -------------------------- */
+
+.vjs-connector path {
+  stroke:black;
+  stroke-width: 2px;
+}
+
+.vjs-connector-outline {
+  stroke:transparent !important;
+  stroke-width:20px !important;
+}
+
+
+/**
+delete button, visible only when element is selected.
+ */
+.vjs-callflow-delete {
+    position:absolute;
+    top:-1.5rem;
+    right:-1.5rem;
+    width:15px;
+    height:15px;
+    padding:2px;
+    font-size:11px;
+    border-radius:50%;
+    cursor:pointer;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vjs-callflow-delete);
+    display:none;
+}
+
+.vjs-callflow-delete::after {
+    content:'x';
+}
+
+.vjs-selected-element .vjs-callflow-delete {
+    display:flex;
+}
+
+
+/* ----------------- inspector -------------------------- */
+
+.vjs-callflow-inspector {
+    display: flex;
+    flex-direction: column;
+}
+
+.vjs-inspector-active {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-top: 3rem;
+}
+
+.vjs-inspector-active input {
+    height: 1.5rem;
+    margin:5px 0;
+}
+
+.vjs-inspector-inactive {
+    display:none;
+}
