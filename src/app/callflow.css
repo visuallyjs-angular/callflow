@@ -1,0 +1,437 @@
+:root {
+    --vjs-callflow-variable: #f1f3f5;
+    --vjs-callflow-green: #2fb344;
+    --vjs-callflow-blue: #206bc4;
+    --vjs-callflow-error: #d63939;
+    --vjs-callflow-delete: #d63939;
+
+    --vjs-callflow-node-bg: #ffffff;
+    --vjs-callflow-node-fg: #1d273b;
+    --vjs-callflow-node-border: #e6e8eb;
+    --vjs-callflow-node-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+    --vjs-callflow-rhs-bg: #f8fafc;
+}
+
+body * {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.vjs-callflow {
+    display: flex;
+    height: 80vh;
+    background-color: #f1f3f5;
+}
+
+.vjs-callflow-rhs {
+    flex-basis: 450px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--vjs-callflow-rhs-bg);
+    border-left: 1px solid #e6e8eb;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
+}
+
+.vjs-controls {
+    left: 1.5rem;
+    top: 1.5rem;
+    position: absolute;
+    z-index: 50;
+}
+
+.vjs-miniview {
+    left: 1.5rem;
+    bottom: 1.5rem;
+    position: absolute;
+    z-index: 50;
+    border: 1px solid var(--vjs-callflow-node-border);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--vjs-callflow-node-shadow);
+}
+
+.vjs-callflow-node {
+    min-width: 160px;
+    max-width: 220px;
+    min-height: 40px;
+    border: 1px solid var(--vjs-callflow-node-border);
+    border-radius: 8px;
+    background-color: var(--vjs-callflow-node-bg);
+    color: var(--vjs-callflow-node-fg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: var(--vjs-callflow-node-shadow);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.vjs-callflow-node:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.vjs-selected-element .vjs-callflow-node {
+    border-color: var(--vjs-callflow-blue);
+    box-shadow: 0 0 0 3px rgba(32, 107, 196, 0.15);
+}
+
+.vjs-callflow-label {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+    border-bottom: 1px solid #f1f3f5;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.vjs-callflow-node-icon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--vjs-callflow-green);
+    margin-right: 0.5rem;
+    flex: 0 0 8px;
+}
+
+.vjs-callflow-node-text {
+    font-size: 13px;
+    padding: 0.5rem 0.75rem;
+    color: #495057;
+    line-height: 1.4;
+}
+
+.vjs-callflow-request-url {
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 10px;
+    color: var(--vjs-callflow-blue);
+    padding: 3px;
+}
+
+.vjs-callflow-request-port {
+    position: relative;
+    font-size: 12px;
+    margin: 0.25rem 0;
+    padding: 0.25rem 0.75rem;
+    color: #495057;
+    transition: background-color 0.2s;
+}
+
+.vjs-callflow-request-port:hover {
+    background-color: #f8fafc;
+}
+
+.vjs-callflow-connect {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    border: 2px solid #fff;
+    background-color: var(--vjs-callflow-green);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    transition: transform 0.2s;
+}
+
+.vjs-callflow-connect:hover {
+    transform: translate(50%, -50%) scale(1.2);
+}
+
+.vjs-callflow-fail-path {
+    color: var(--vjs-callflow-error);
+}
+
+.vjs-callflow-fail-path .vjs-callflow-connect {
+    background-color: var(--vjs-callflow-error);
+}
+
+.vjs-callflow-variable {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    margin: 2px 0.5rem;
+}
+
+.vjs-callflow-variable:hover {
+    background-color: #f1f3f5;
+}
+
+.vjs-callflow-variable-name {
+    background-color: var(--vjs-callflow-variable);
+    padding: 2px 6px;
+    margin: 0;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #495057;
+}
+
+.vjs-callflow-variable-value {
+    margin-left: 8px;
+    white-space: nowrap;
+    font-size: 12px;
+    color: #212529;
+}
+
+.vjs-callflow-variable .vjs-edge-delete {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.vjs-callflow-variable:hover .vjs-edge-delete {
+    opacity: 1;
+}
+
+.vjs-callflow-set-variables-buttons {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-top: 1px solid #f1f3f5;
+}
+
+.vjs-callflow-set-variables-buttons button {
+    margin-right: 0.5rem;
+    padding: 2px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    border: 1px solid var(--vjs-callflow-node-border);
+    background: #fff;
+    border-radius: 4px;
+    color: #495057;
+}
+
+.vjs-callflow-set-variables-buttons button:hover {
+    background: #f8fafc;
+    border-color: #adb5bd;
+}
+
+.vjs-callflow-condition {
+    position: relative;
+    font-size: 12px;
+    margin: 0.15rem 0;
+    padding: 0.25rem 0.75rem;
+    white-space: nowrap;
+    color: #495057;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.vjs-callflow-condition:hover {
+    background-color: #f8fafc;
+}
+
+.vjs-callflow-add-condition {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--vjs-callflow-blue);
+    font-size: 14px;
+    padding: 0 0.5rem;
+}
+
+.vjs-callflow-condition > span {
+    overflow: hidden;
+    width: calc(100% - 10px);
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.vjs-callflow-condition .vjs-edge-delete {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translate(0, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.vjs-callflow-condition:hover .vjs-edge-delete {
+    opacity: 1;
+}
+
+.vjs-callflow-keypad-key {
+    padding: 4px 1rem 4px 0.75rem;
+    position: relative;
+    border-bottom: 1px solid #f1f3f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.vjs-callflow-keypad-key:last-child {
+    border-bottom: none;
+}
+
+.vjs-callflow-palette {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1rem;
+    justify-content: flex-start;
+    gap: 0.75rem;
+}
+
+.vjs-callflow-palette-item {
+    padding: 0.75rem;
+    border: 1px solid var(--vjs-callflow-node-border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    background: #fff;
+    cursor: grab;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/*
+hover transition, but only when the item is in the palette. when it is being dragged we dont want
+a transition applied.
+ */
+.vjs-callflow-palette .vjs-callflow-palette-item {
+    transition: all 0.2s;
+    font-size: 13px;
+    padding: 0.25rem;
+}
+
+.vjs-callflow-palette-item:hover {
+    border-color: var(--vjs-callflow-blue);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.vjs-callflow-palette-item .vjs-callflow-node-icon {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+    width: 10px;
+    height: 10px;
+    flex: inherit;
+}
+
+.vjs-callflow-palette-item .vjs-callflow-label {
+    padding: 0;
+    border-bottom: none;
+    font-size: 11px;
+    color: #495057;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+/* ------------------- edge styles -------------------------- */
+
+.vjs-connector path {
+    stroke: #adb5bd;
+    stroke-width: 2px;
+    transition: stroke 0.2s;
+}
+
+.vjs-connector:hover path {
+    stroke: var(--vjs-callflow-blue);
+}
+
+.vjs-connector-outline {
+    stroke: transparent !important;
+    stroke-width: 20px !important;
+}
+
+/**
+delete button, visible only when element is selected.
+ */
+.vjs-callflow-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--vjs-callflow-delete);
+    display: none;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.vjs-callflow-delete::after {
+    content: '✕';
+}
+
+.vjs-selected-element .vjs-callflow-delete {
+    display: flex;
+}
+
+/* ----------------- inspector -------------------------- */
+.vjs-inspector-active {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1rem;
+}
+
+.vjs-inspector-active h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 16px;
+    color: var(--vjs-callflow-node-fg);
+}
+
+.vjs-inspector-active label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.vjs-inspector-active input,
+.vjs-inspector-active select,
+.vjs-inspector-active textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 13px;
+    border: 1px solid var(--vjs-callflow-node-border);
+    border-radius: 6px;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.vjs-inspector-active input:focus,
+.vjs-inspector-active select:focus,
+.vjs-inspector-active textarea:focus {
+    outline: none;
+    border-color: var(--vjs-callflow-blue);
+    box-shadow: 0 0 0 3px rgba(32, 107, 196, 0.1);
+}
+
+.vjs-inspector-inactive {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: #adb5bd;
+    font-style: italic;
+    font-size: 14px;
+    padding: 2rem;
+    text-align: center;
+}
