@@ -335,13 +335,13 @@ a transition applied.
 
 /* ------------------- edge styles -------------------------- */
 
-.vjs-connector path {
+.vjs-connector-path {
     stroke: #adb5bd;
     stroke-width: 2px;
     transition: stroke 0.2s;
 }
 
-.vjs-connector:hover path {
+.vjs-connector:hover .vjs-connector-path {
     stroke: var(--vjs-callflow-blue);
 }
 
