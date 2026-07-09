@@ -14,3 +14,9 @@ app-root {
 vjs-surface {
   width:100%;
 }
+
+vjs-miniview {
+    bottom:0.5rem;
+    left:0.5rem;
+    position:absolute;
+}
