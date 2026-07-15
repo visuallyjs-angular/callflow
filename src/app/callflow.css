@@ -29,6 +29,7 @@ body * {
     background-color: var(--vjs-callflow-rhs-bg);
     border-left: 1px solid #e6e8eb;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.02);
+    overflow: auto;
 }
 
 .vjs-controls {
