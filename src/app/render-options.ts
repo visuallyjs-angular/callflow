@@ -1,4 +1,4 @@
-import {BackgroundPlugin, GeneratedGridBackground, AnchorLocations, CONNECTOR_TYPE_ORTHOGONAL} from "@visuallyjs/browser-ui";
+import {BackgroundPlugin, GeneratedGridBackground, AnchorLocations, CONNECTOR_TYPE_ORTHOGONAL, PLUGIN_TYPE_LINE_CROSSINGS} from "@visuallyjs/browser-ui";
 import {AngularRenderOptions} from "@visuallyjs/browser-ui-angular";
 
 const renderOptions:AngularRenderOptions = {
@@ -22,12 +22,7 @@ const renderOptions:AngularRenderOptions = {
         }
     },
     plugins:[
-        {
-            type:BackgroundPlugin.type,
-            options:{
-                type:GeneratedGridBackground.type
-            }
-        }
+        PLUGIN_TYPE_LINE_CROSSINGS
     ]
 }
 
